@@ -12,11 +12,11 @@ import java.util.List;
 @Mapper
 public interface FavoriteMapper  {
 
-    @Insert("INSERT INTO favorites (user_id, product_id,sku_id,create_time) VALUES (#{userId}, #{productId}, #{skuId},#{createTime})")
+    @Insert("INSERT INTO favorites (user_id, product_id,create_time) VALUES (#{userId}, #{productId}, #{createTime})")
     void addFavorite(Favorite favorite);
 
-    @Delete("DELETE FROM favorites WHERE user_id = #{userId} AND product_id = #{productId} AND sku_id = #{skuId}")
-    void removeFavorite(@Param("userId") Long userId, @Param("productId") Long productId, @Param("skuId") Long skuId);
+    @Delete("DELETE FROM favorites WHERE user_id = #{userId} AND product_id = #{productId} ")
+    void removeFavorite(@Param("userId") Long userId, @Param("productId") Long productId);
 
 
     @Select("""

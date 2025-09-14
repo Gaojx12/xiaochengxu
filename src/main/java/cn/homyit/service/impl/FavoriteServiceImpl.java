@@ -27,20 +27,16 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     //添加商品到收藏夹
     @Override
-    public Result addFavorite(Long userId, Long productId,Long skuId) {
-        ProductSku sku = productSkuMapper.selectById(skuId);
-        if (sku == null) {
-            return Result.fail("该商品的规格不存在");
-        }
+    public Result addFavorite(Long userId, Long productId) {
 
-        Favorite existing = favoriteMapper.findByUserIdAndSkuId(userId, productId, skuId);
+
+        Favorite existing = favoriteMapper.findByUserIdAndSkuId(userId, productId);
         if (existing != null) {
             return Result.fail("商品已收藏");
         } else {
             Favorite item = new Favorite();
             item.setUserId(userId);
             item.setProductId(productId);
-            item.setSkuId(skuId);
             item.setCreateTime(LocalDateTime.now());
             favoriteMapper.addFavorite(item);
             return Result.success("已成功收藏");
